@@ -1,4 +1,4 @@
-package com.luv2code.ecommerce.entity;
+package com.springboot.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
