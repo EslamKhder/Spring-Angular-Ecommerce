@@ -11,12 +11,7 @@ import java.util.Set;
 // @Data -- known bug
 @Getter
 @Setter
-public class ProductCategory {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class ProductCategory extends BaseEntity{
 
     @Column(name = "category_name")
     private String categoryName;
@@ -25,10 +20,3 @@ public class ProductCategory {
     private Set<Product> products;
 
 }
-
-
-
-
-
-
-

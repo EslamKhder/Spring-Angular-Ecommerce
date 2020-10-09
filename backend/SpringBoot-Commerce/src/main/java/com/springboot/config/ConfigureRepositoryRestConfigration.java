@@ -25,6 +25,5 @@ public class ConfigureRepositoryRestConfigration implements RepositoryRestConfig
                 .forDomainType(ProductCategory.class)
                 .withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedaction))
                 .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedaction));
-
     }
 }

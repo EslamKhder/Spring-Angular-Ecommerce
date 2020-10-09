@@ -11,12 +11,7 @@ import java.util.Date;
 @Entity
 @Table(name="product")
 @Data
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class Product extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
