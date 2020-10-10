@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductComponent } from './components/product/product.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ProductService } from './services/product.service';
+import { ProductService } from './services/productservice/product.service';
 import {Router, RouterModule, Routes} from "@angular/router";
+import { CategoryComponent } from './components/category/category.component';
 
 const routes: Routes = [
   {path: 'category/:id', component: ProductComponent},
@@ -18,7 +18,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent
+    ProductComponent,
+    CategoryComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
