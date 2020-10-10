@@ -1,0 +1,7 @@
+<div class="form-header">
+  <input #productname class="au-input au-input-xl" type="text" name="search"
+         placeholder="Search for data ..." (keyup.enter)="doSearch(productname.value)" [(ngModel)]="searchProduct" />
+  <button class="au-btn-submit" (click)="doSearch(productname.value)">
+    Search
+  </button>
+</div>
