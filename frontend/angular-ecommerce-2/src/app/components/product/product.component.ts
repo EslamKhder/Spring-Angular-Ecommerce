@@ -19,8 +19,10 @@ export class ProductComponent implements OnInit {
 
   // new properties for pagination
   thePageNumber: number = 1;
-  thePageSize: number = 10;
+  thePageSize: number = 5;
   theTotalElements: number = 0;
+
+  previousKeyWord: string = undefined;
 
   constructor(private productService: ProductService, private route: ActivatedRoute,private router: Router) { }
 
@@ -33,7 +35,7 @@ export class ProductComponent implements OnInit {
 
   listProducts() {
     this.productSearch = this.route.snapshot.paramMap.has("name");
-    if(this.productSearch){
+    if(this.productSearch) {
       this.handleSearchProduct();
     } else {
       this.handleListProduct();
@@ -41,11 +43,14 @@ export class ProductComponent implements OnInit {
   }
   handleSearchProduct(){
     const productSearchName: string = this.route.snapshot.paramMap.get("name");
-    this.productService.getSearchProductList(productSearchName).subscribe(
-      data => {
-        this.products = data;
-      }
-    )
+    if(this.previousKeyWord != productSearchName){
+      this.thePageNumber = 1;
+    }
+    this.previousKeyWord = productSearchName;
+    this.productService.getSearchProductListPaginate(this.thePageNumber - 1,
+                                                                  this.thePageSize
+                                                                  ,productSearchName).subscribe(this.processResult());
+
   }
   handleListProduct(){
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has("id");
@@ -61,8 +66,6 @@ export class ProductComponent implements OnInit {
 
     this.previousCategoryId = this.currentCategoryId;
 
-    console.log(`currentCategoryId=${this.currentCategoryId}, thePageNumber=${this.thePageNumber}`,
-           "  size" +  this.thePageSize);
     // now get the products for the given category id
     this.productService.getProductListPaginate(this.thePageNumber - 1,
       this.thePageSize,
@@ -72,7 +75,6 @@ export class ProductComponent implements OnInit {
   processResult() {
     return data => {
       this.products = data._embedded.products;
-      console.log(this.products);console.log(data._embedded.products);
       this.thePageNumber = data.page.number + 1;
       this.thePageSize = data.page.size;
       this.theTotalElements = data.page.totalElements
@@ -82,5 +84,9 @@ export class ProductComponent implements OnInit {
     this.thePageSize = event.target.value;
     this.thePageNumber = 1;
     this.listProducts();
+  }
+
+  addToCart(tempProduct: Product) {
+    console.log("Name : " + tempProduct.name + "   Price: " + tempProduct.unitPrice)
   }
 }
