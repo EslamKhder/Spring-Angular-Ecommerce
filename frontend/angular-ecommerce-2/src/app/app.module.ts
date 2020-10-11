@@ -10,6 +10,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { ProductSearchComponent } from './components/product-search/product-search.component';
 import {FormsModule} from "@angular/forms";
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
   {path: 'category/:id', component: ProductComponent},
@@ -33,7 +34,8 @@ const routes: Routes = [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]
