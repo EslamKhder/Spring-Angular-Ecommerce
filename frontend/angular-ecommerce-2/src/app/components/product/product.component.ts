@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/productservice/product.service';
 import { Product } from 'src/app/model/product';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-list',
@@ -16,7 +16,7 @@ export class ProductComponent implements OnInit {
   currentCategoryId: number;
   productSearch: boolean;
 
-  constructor(private productService: ProductService, private route: ActivatedRoute) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute,private router: Router) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(() => {
@@ -54,6 +54,4 @@ export class ProductComponent implements OnInit {
       }
     )
   }
-
-
 }
