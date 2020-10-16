@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/productservice/product.service';
 import { Product } from 'src/app/model/product';
 import {ActivatedRoute, Router} from "@angular/router";
+import {CartItem} from "../../model/cart-item";
+import {CartService} from "../../services/cartservices/cart.service";
+
 
 @Component({
   selector: 'app-product-list',
@@ -11,7 +14,6 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-
   products: Product[] = [];
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
@@ -24,7 +26,10 @@ export class ProductComponent implements OnInit {
 
   previousKeyWord: string = undefined;
 
-  constructor(private productService: ProductService, private route: ActivatedRoute,private router: Router) { }
+  constructor(private productService: ProductService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private cart: CartService) { }
 
   ngOnInit() {
 
@@ -71,11 +76,12 @@ export class ProductComponent implements OnInit {
       this.thePageSize,
       this.currentCategoryId)
       .subscribe(this.processResult());
-  }ث
+  }
   processResult() {
+
     return data => {
       this.products = data._embedded.products;
-      this.thePageNumber = data.page.number + 1;
+      this.thePageNumber = data.page.number;
       this.thePageSize = data.page.size;
       this.theTotalElements = data.page.totalElements
     };
@@ -85,8 +91,7 @@ export class ProductComponent implements OnInit {
     this.thePageNumber = 1;
     this.listProducts();
   }
-
   addToCart(tempProduct: Product) {
-    console.log("Name : " + tempProduct.name + "   Price: " + tempProduct.unitPrice)
+    this.cart.addToCart(new CartItem(tempProduct));
   }
 }

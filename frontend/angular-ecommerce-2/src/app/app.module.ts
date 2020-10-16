@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { ProductComponent } from './components/product/product.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/productservice/product.service';
-import {Router, RouterModule, Routes} from "@angular/router";
+import {RouterModule, Routes} from "@angular/router";
 import { CategoryComponent } from './components/category/category.component';
 import { ProductSearchComponent } from './components/product-search/product-search.component';
 import {FormsModule} from "@angular/forms";

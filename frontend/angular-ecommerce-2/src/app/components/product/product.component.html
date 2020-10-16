@@ -9,7 +9,7 @@
                     <a routerLink="/product/{{tempProduct.id}}">
                       <img src="{{ tempProduct.imageUrl }}" class="img-responsive">
                     </a>
-                    <a routerLink="/product/{{tempProduct.id}}">
+                    <a routerLink="/product/{{tempProduct.id}}" (click)="done()">
                       <h1>{{ tempProduct.name }}</h1>
                     </a>
                     <div class="price">{{ tempProduct.unitPrice | currency:'USD' }}</div>
@@ -33,9 +33,9 @@
                     <ngb-pagination [(page)]="thePageNumber"
                                     [pageSize]="thePageSize"
                                     [collectionSize]="theTotalElements"
-                                    (pageChange)="listProducts()"
                                     [maxSize]="2"
                                     [boundaryLinks]="true">
+                      <!-- (pageChange)="listProducts()" -->
                     </ngb-pagination>
                   </div>
                   <div class="col-md-3 mt-2" style="text-align: right;">
