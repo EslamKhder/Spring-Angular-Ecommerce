@@ -12,7 +12,8 @@ export class CartService {
   totalPrice: Subject<number> = new Subject<number>();
   totalQuantity: Subject<number> = new Subject<number>();
 
-  constructor() { }
+  constructor() {
+  }
 
   addToCart(theCartItem: CartItem) {
 
@@ -32,18 +33,33 @@ export class CartService {
     if (alreadyExistsInCart) {
       // increment the quantity
       existingCartItem.quantity++;
-    }
-    else {
+    } else {
       // just add the item to the array
       this.cartItems.push(theCartItem);
     }
-
     // compute cart total price and total quantity
     this.computeCartTotals();
   }
 
-  computeCartTotals() {
+  removeItem(theCartItem: CartItem) {
+    theCartItem.quantity--;
+    if (theCartItem.quantity == 0) {
+      this.remove(theCartItem);
+    } else {
+      this.computeCartTotals();
+    }
 
+  }
+  remove(theCartItem: CartItem){
+    const indexCartItem = this.cartItems.findIndex(cartItem => cartItem.id == theCartItem.id);
+    if (indexCartItem > -1){
+      this.cartItems.splice(indexCartItem,1);
+      // compute cart total price and total quantity
+      this.computeCartTotals();
+    }
+  }
+
+  computeCartTotals() {
     let totalPriceValue: number = 0;
     let totalQuantityValue: number = 0;
 
@@ -57,10 +73,10 @@ export class CartService {
     this.totalQuantity.next(totalQuantityValue);
 
     // log cart data just for debugging purposes
-    this.logCartData(totalPriceValue, totalQuantityValue);
+    //this.logCartData(totalPriceValue, totalQuantityValue);
   }
 
-  logCartData(totalPriceValue: number, totalQuantityValue: number) {
+  /*logCartData(totalPriceValue: number, totalQuantityValue: number) {
 
     console.log('Contents of the cart');
     for (let tempCartItem of this.cartItems) {
@@ -71,4 +87,6 @@ export class CartService {
     console.log(`totalPrice: ${totalPriceValue.toFixed(2)}, totalQuantity: ${totalQuantityValue}`);
     console.log('----');
   }
+
+   */
 }
