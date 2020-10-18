@@ -11,6 +11,8 @@ export class CartService {
 
   totalPrice: Subject<number> = new Subject<number>();
   totalQuantity: Subject<number> = new Subject<number>();
+  tp: number = 0;
+  tq: number = 0;
 
   constructor() {
   }
@@ -70,6 +72,8 @@ export class CartService {
 
     // publish the new values ... all subscribers will receive the new data
     this.totalPrice.next(totalPriceValue);
+    this.tp = totalPriceValue;
+    this.tq = totalQuantityValue;
     this.totalQuantity.next(totalQuantityValue);
 
     // log cart data just for debugging purposes

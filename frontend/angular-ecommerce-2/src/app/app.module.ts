@@ -8,13 +8,15 @@ import { ProductService } from './services/productservice/product.service';
 import {RouterModule, Routes} from "@angular/router";
 import { CategoryComponent } from './components/category/category.component';
 import { ProductSearchComponent } from './components/product-search/product-search.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 const routes: Routes = [
+  {path: "checkout",component: CheckoutComponent},
   {path: "cartdetails",component: CartDetailsComponent},
   {path: 'category/:id', component: ProductComponent},
   {path: 'product/search/:name', component: ProductComponent},
@@ -32,7 +34,8 @@ const routes: Routes = [
     ProductSearchComponent,
     ProductDetailsComponent,
     CartStatusComponent,
-    CartDetailsComponent
+    CartDetailsComponent,
+    CheckoutComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -40,7 +43,8 @@ const routes: Routes = [
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]
