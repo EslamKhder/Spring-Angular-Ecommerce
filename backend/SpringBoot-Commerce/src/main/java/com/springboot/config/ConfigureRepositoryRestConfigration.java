@@ -1,8 +1,10 @@
 package com.springboot.config;
 
 
+import com.springboot.entity.Country;
 import com.springboot.entity.Product;
 import com.springboot.entity.ProductCategory;
+import com.springboot.entity.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -30,18 +32,26 @@ public class ConfigureRepositoryRestConfigration implements RepositoryRestConfig
         HttpMethod[] unsupportedaction = {HttpMethod.PUT,HttpMethod.POST,HttpMethod.DELETE};
 
         // disable HTTP Method for Product
-        config.getExposureConfiguration()
-              .forDomainType(Product.class)
-              .withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedaction))
-              .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedaction));
+        dispaleHttpMethods(Product.class,config, unsupportedaction);
 
         // disable HTTP Method for ProductCategory
-        config.getExposureConfiguration()
-                .forDomainType(ProductCategory.class)
-                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedaction))
-                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedaction));
+        dispaleHttpMethods(ProductCategory.class,config, unsupportedaction);
+
+        // disable HTTP Method for Country
+        dispaleHttpMethods(Country.class,config, unsupportedaction);
+
+        // disable HTTP Method for Stat
+        dispaleHttpMethods(State.class,config, unsupportedaction);
+
         // call an internal helper method
         exposeIds(config);
+    }
+
+    private void dispaleHttpMethods(Class theClass,RepositoryRestConfiguration config, HttpMethod[] unsupportedaction) {
+        config.getExposureConfiguration()
+              .forDomainType(theClass)
+              .withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedaction))
+              .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedaction));
     }
 
     private void exposeIds(RepositoryRestConfiguration config) {
