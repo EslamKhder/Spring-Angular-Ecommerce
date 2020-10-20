@@ -13,6 +13,14 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="firstName" type="text">
+                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                  <div *ngIf="firstName.errors.required || firstName.errors.notOnlyWithSpace" class="alert alert-danger">
+                    First Name is required.
+                  </div>
+                  <div *ngIf="firstName.errors.minlength" class="alert alert-danger">
+                    First Name must be at least 3 charcter long.
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -22,19 +30,33 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="lastName" type="text">
+                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                  <div *ngIf="lastName.errors.required || lastName.errors.notOnlyWithSpace" class="alert alert-danger">
+                    Last Name is required.
+                  </div>
+                  <div *ngIf="lastName.errors.minlength" class="alert alert-danger">
+                    Lirst Name must be at least 3 charcter long.
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
           <div class="row">
             <div class="col-md-2"> <label>Email</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="email" type="text">
+                <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                  <div *ngIf="email.errors.required" class="alert alert-danger">
+                    Email is required.
+                  </div>
+                  <div *ngIf="email.errors.pattern" class="alert alert-danger">
+                    Email must be a valid email address
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
         </div>
         <!-- shipping Address -->
         <div formGroupName="shippingAddress" class="form-area">
